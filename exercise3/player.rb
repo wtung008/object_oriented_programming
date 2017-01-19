@@ -20,6 +20,7 @@ attr_reader :gold_coins, :health_points, :lives,  :score
     if lives == 0
       restart
     end
+    return self
   end
 
   def restart
@@ -36,15 +37,17 @@ attr_reader :gold_coins, :health_points, :lives,  :score
     return self
   end
 
-  def collect_treasure
-    puts "Please provide number?"
-    treasure = gets.chomp.to_i
-    @gold_coins = treasure + gold_coins
+  def collect_treasure(number)
+    @gold_coins += number
     if gold_coins >= 10
-      @score = score + 1
-      @gold_coins = gold_coins - 1
-    else
-      result @gold_coins
+      @score += 1
+      @gold_coins -= 10
     end
 
+    if score == 10
+      level_up
+    end
+
+    return self
+  end
 end
