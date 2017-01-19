@@ -9,32 +9,31 @@ attr_reader :gold_coins, :health_points, :lives,  :score
     @score = score
   end
 
+
+  def do_battle
+    @health_points -= 1
+    if health_points == 0
+      @lives = lives - 1
+      @health_points = 10
+    end
+
+    if lives == 0
+      restart
+    end
+  end
+
   def restart
     @health_points = 10
     @gold_coins = 0
     @lives = 5
     @score = 0
+    return self
   end
-
-  def do_battle
-    if health_points == 0
-      @lives = lives - 1
-      @health_points = 10
-    else
-      @health_points = health_points - 1
-    end
-
-    if lives == 0
-        restart
-    else
-      result @lives
-    end
-  end
-
 
   def level_up
     @lives = lives + 1
     @score = score - 10
+    return self
   end
 
   def collect_treasure
@@ -47,6 +46,5 @@ attr_reader :gold_coins, :health_points, :lives,  :score
     else
       result @gold_coins
     end
-
 
 end
